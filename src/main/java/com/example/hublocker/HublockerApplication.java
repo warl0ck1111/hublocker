@@ -23,11 +23,16 @@ public class HublockerApplication implements ApplicationListener<ContextRefreshe
 	@Autowired
 	private DataSource dataSource;
 
+
+//	change this variable in the application.properties file after the first successful run
 	@Value("${databaseAlreadySetup}")
 	boolean alreadySetup;
 
 	public static void main(String[] args) {
 		SpringApplication.run(HublockerApplication.class, args);
+
+		log.info("\n\n>>>>>>>>>>>>>>>>> HUB LOCKER APPLICATION SERVER STARTED <<<<<<<<<<<<<<<<<<<<\n\n");
+
 	}
 
 	@Override
