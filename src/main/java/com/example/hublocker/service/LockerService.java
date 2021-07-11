@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * @author Okala III
@@ -25,13 +26,12 @@ public class LockerService implements CRUDService<Locker,LockerDto>{
 
     @Autowired
     private LgaRepository lgaRepository;
-//    @Autowired
-//    private
+
     private Locker locker;
-    private Lga location;
-    private LockerCategory lockerCategory;
+
     @Override
     public Locker create(LockerDto dto) {
+        //TODO: sanitize dto input
         locker = new Locker();
         BeanUtils.copyProperties(dto,locker);
 
@@ -46,7 +46,8 @@ public class LockerService implements CRUDService<Locker,LockerDto>{
     @Override
     public Locker update(LockerDto dto) {
 
-        locker = lockerRepository.findById(dto.getId()).orElseThrow(()-> new IllegalArgumentException("Invalid Locker Id"));
+        //TODO: sanitize dto input
+        locker = lockerRepository.findById(dto.getId()).orElseThrow(()-> new NoSuchElementException("Invalid Locker Id"));
         BeanUtils.copyProperties(dto,locker);
 
         return lockerRepository.save(locker);
@@ -59,7 +60,7 @@ public class LockerService implements CRUDService<Locker,LockerDto>{
 
     @Override
     public Boolean delete(Long id) {
-        locker = lockerRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid Locker Id"));
+        locker = lockerRepository.findById(id).orElseThrow(()-> new NoSuchElementException("Invalid Locker Id"));
 
         lockerRepository.delete(locker);
         return true;
@@ -72,6 +73,6 @@ public class LockerService implements CRUDService<Locker,LockerDto>{
 
     @Override
     public Locker findById(long id) {
-        return lockerRepository.findById(id).orElseThrow(()-> new IllegalArgumentException("Invalid Locker Id"));
+        return lockerRepository.findById(id).orElseThrow(()-> new NoSuchElementException("Invalid Locker Id"));
     }
 }
