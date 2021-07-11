@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("api/locker")
-@CrossOrigin(origins = {"http://localhost:4201/","*"})
+@CrossOrigin(origins = "*")
 public class LockerController {
 
     @Autowired
